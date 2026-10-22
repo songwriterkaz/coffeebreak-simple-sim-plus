@@ -1,0 +1,67 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#d6457a"><meta name="apple-mobile-web-app-capable" content="yes">
+<title>Coffeebreak Simple SIM Plus</title><link rel="manifest" href="manifest.webmanifest"><link rel="apple-touch-icon" href="icon.png">
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#ffe4ef;color:#7a1f48;text-align:center;font-size:22px}
+main{max-width:480px;margin:0 auto;padding:14px 16px 8px;min-height:100vh;display:flex;flex-direction:column;gap:14px}
+header{display:flex;align-items:center;justify-content:center;gap:10px}header img{width:52px;height:52px;border-radius:12px}h1{font-size:24px;margin:0}
+#st{font-size:26px;font-weight:700;min-height:34px}#st.ok{color:#137a33}#net{font-size:18px;font-weight:600}
+button,input,select{font:inherit;border-radius:18px;border:0}input{padding:14px;border:2px solid #7a1f48;width:100%;font-size:22px;text-align:center}
+.big{padding:20px;font-size:28px;font-weight:800;color:#fff;background:#c2185b;width:100%}
+#call{background:#1aa34a;font-size:44px;padding:38px 10px}#call.end{background:#d02b2b}#ans{background:#1aa34a;font-size:40px;padding:34px}
+.row{display:flex;gap:10px}.sm{flex:1;padding:14px;font-size:20px;background:#f9c5da;color:#7a1f48}.sm.on{background:#7a1f48;color:#fff}
+#qr{margin:0 auto;width:132px;height:132px;background:#fff;padding:6px;border-radius:10px}#qr img,#qr canvas{width:120px!important;height:120px!important}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.ic{padding:16px 6px;font-size:19px;font-weight:700;background:#f9c5da;color:#7a1f48}.ic b{display:block;font-size:34px}
+.panel{background:#fff;border-radius:18px;padding:14px;display:flex;flex-direction:column;gap:10px;text-align:left;font-size:19px}.panel h2{margin:0;font-size:24px;text-align:center}
+.ct{display:flex;align-items:center;gap:8px;border-bottom:1px solid #f9c5da;padding:6px 0}.ct span{flex:1;font-size:22px;font-weight:700;overflow:hidden;text-overflow:ellipsis}
+.ct button{padding:10px 12px;font-size:18px;background:#f9c5da;color:#7a1f48}.ct .g{background:#1aa34a;color:#fff}
+video{width:100%;border-radius:14px;background:#000}
+.hide{display:none!important}small{font-size:14px;opacity:.8}footer{font-size:12px;opacity:.75;margin-top:auto;padding-top:10px}
+</style></head><body><main>
+<header><img src="logo.png" alt="Coffeebreak"><h1>Coffeebreak SIM Plus</h1></header>
+<section id="setup" class="hide"><p>Your name</p><input id="nm" maxlength="20" autocomplete="off"><p><button class="big" id="start">Start</button></p></section>
+<section id="app" class="hide" style="display:flex;flex-direction:column;gap:14px">
+<div id="me"></div><div id="net">Online</div><div id="st">Starting</div>
+<select id="who" style="padding:10px;border-radius:14px"></select>
+<button class="big" id="ans" hidden>Answer</button>
+<button class="big" id="call">CALL</button>
+<div class="row"><button class="sm" id="mute">Mute</button><button class="sm" id="pause">Pause</button></div>
+<button class="big" id="share">Share my link</button>
+<button class="big" id="more">More</button>
+<div id="morebox" class="hide" style="display:flex;flex-direction:column;gap:12px">
+<div class="grid">
+<button class="ic" id="bContacts"><b>👥</b>Contacts</button>
+<button class="ic" id="bAdd"><b>➕</b>Add contact</button>
+<button class="ic" id="bScan"><b>📷</b>Scan QR</button>
+<button class="ic" id="bHot"><b>📶</b>Hotspot</button>
+<button class="ic" id="bBt"><b>🎧</b>Bluetooth audio</button>
+<button class="ic" id="bImp"><b>📥</b>Import contacts</button>
+<button class="ic" id="bSave"><b>💾</b>Save to phone contacts</button>
+<button class="ic" id="bSend"><b>📤</b>Send my contacts</button>
+</div>
+<div id="pContacts" class="panel hide"><h2>Contacts</h2><div id="clist"></div><small>Your contacts sync to your other phones with the same name.</small></div>
+<div id="pAdd" class="panel hide"><h2 id="addh">Add contact</h2>
+<input id="cn" placeholder="Name" maxlength="30"><input id="cs" placeholder="Their SIM name or link"><input id="ct" placeholder="Phone number (optional)" inputmode="tel">
+<button class="big" id="csave">Save</button></div>
+<div id="pScan" class="panel hide"><h2>Scan their QR</h2><video id="cam" playsinline muted></video><button class="big" id="scanstop">Stop</button></div>
+<div id="pHot" class="panel hide"><h2>Hotspot</h2>
+<div><b>iPhone / iPad:</b> Settings, Personal Hotspot, turn on Allow Others to Join.</div>
+<div><b>Android:</b> Swipe down, tap Hotspot. Or Settings, Network, Hotspot.</div>
+<div>The other phone joins that WiFi, then opens its link.</div>
+<div>Calls work on WiFi, mobile data and hotspot.</div></div>
+<div id="pBt" class="panel hide"><h2>Bluetooth audio</h2><div id="btmsg">Connect your headset or car in the phone's Bluetooth settings first.</div><select id="outs" class="hide" style="padding:10px"></select><button class="big" id="btpick">Choose speaker</button></div>
+<div id="pImp" class="panel hide"><h2>Import contacts</h2>
+<button class="big" id="pick">From this phone</button>
+<button class="big" id="vcfbtn">From a contacts file (.vcf)</button><input type="file" id="vcf" accept=".vcf,text/vcard,text/x-vcard" class="hide">
+<small>iPhone: in Contacts, share a contact, save to Files, then pick it here.</small></div>
+<div id="pSend" class="panel hide"><h2>Send my contacts</h2><button class="big" id="sendlink">Send as link</button><button class="big" id="sendfile">Send as file</button></div>
+</div>
+<div id="qr"></div><small>Scan to call me</small>
+</section>
+<audio id="au" autoplay playsinline></audio>
+<footer>© Karen O'Brien (Coffeebreak). Karen O'Brien keeps all rights to this app, its design, name and logo. You may resell a physical phone you bought, but you may not copy this app or make your own version of it.</footer>
+</main>
+<script src="app.js"></script>
+<script src="qrcode.min.js" defer></script><script src="peerjs.min.js" defer></script>
+</body></html>
