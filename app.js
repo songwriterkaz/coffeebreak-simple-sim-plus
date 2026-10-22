@@ -87,8 +87,8 @@ L.forEach(function(c){var r=document.createElement('div');r.className='ct';var s
 function btn(t,cl,f){var b=document.createElement('button');b.textContent=t;if(cl)b.className=cl;b.onclick=f;r.appendChild(b)}
 if(c.sim)btn('📞 Call','g',function(){callTo(c.sim)});
 if(c.tel)btn('☎️ Phone','',function(){location.href='tel:'+c.tel});
-btn('✏️','',function(){editing=c.k;$('#addh').textContent='Edit contact';$('#cn').value=c.n;$('#cs').value=c.sim;$('#ct').value=c.tel;show('pAdd')});
-btn('🗑️','',function(){if(confirm('Delete '+c.n+'?'))merge([{k:c.k,n:c.n,sim:'',tel:'',t:Date.now(),del:true}])});d.appendChild(r)})}
+btn('✏️ Edit','',function(){editing=c.k;$('#addh').textContent='Edit contact';$('#cn').value=c.n;$('#cs').value=c.sim;$('#ct').value=c.tel;show('pAdd')});
+btn('🗑️ Delete','',function(){if(confirm('Delete '+c.n+'?'))merge([{k:c.k,n:c.n,sim:'',tel:'',t:Date.now(),del:true}])});d.appendChild(r)})}
 // ---- QR scan ----
 var camS,scanT;
 function stopScan(){clearTimeout(scanT);if(camS)camS.getTracks().forEach(function(t){t.stop()});camS=null}
